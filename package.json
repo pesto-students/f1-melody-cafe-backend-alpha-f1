@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "lint": "./node_modules/.bin/eslint  --fix "
+    "lint": "./node_modules/.bin/eslint  --fix ",
+    "develope": "nodemon ./bin/www"
   },
   "dependencies": {
     "aws-sdk": "^2.1000.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "melody-cafe-datamodel": "^1.0.0",
+    "melody-cafe-datamodel": "^1.1.0",
     "morgan": "~1.9.1",
     "spotify-web-api-node": "^5.0.2",
     "uuid": "^8.3.2"
@@ -22,6 +23,7 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
+    "nodemon": "^2.0.13",
     "prettier": "2.4.1",
     "winston": "^3.3.3"
   }

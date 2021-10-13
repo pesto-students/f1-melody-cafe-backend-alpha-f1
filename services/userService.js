@@ -1,6 +1,5 @@
 const ServiceIntiater = require('./serviceIntiaters');
 const { v4: uuidv4 } = require('uuid');
-const { json } = require('express');
 const Service = new ServiceIntiater();
 const logger = Service.logger;
 module.exports = {

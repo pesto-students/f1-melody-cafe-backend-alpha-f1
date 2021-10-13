@@ -10,5 +10,30 @@ module.exports = {
             logger.error(`ERROR :: [USERCONTROLLER] :: [getUserById] :: ${JSON.stringify(err)}`);
             res.status(404).send(err);
         }
+    },
+    addUser: async function(req,res){
+        try{
+            const {firstName,lastName,userName,userType}= req.body;
+            try{
+               let createdUser = await userService.addUser(firstName,lastName,userName,userType);
+               return res.status(200).send(createdUser)
+             }catch(err){
+                logger.error(`[USER-CONTROLLER] :: [ADDALBUM] :: `,err);s
+                let errObj = {
+                    type: 'INTERNAl_SERVICE_ERROR',
+                    code: 'ADDUSER_NOT_AVAIABLE',
+                    message: 'ERROR WHILE ADDING THE USER'
+                }  
+                return res.status(500).send(errObj)
+             }
+        }catch(err){
+            logger.error(`ERROR :: [USERCONTROLLER] :: [getUserById] :: ${JSON.stringify(err)}`);
+            let errObj = {
+                type: 'REQUIRED_PARAMETERS_MISSING',
+                code: 'REQUIRD PARAMERTRS ARE MISSING firstName,lastName,userName,userType',
+                message: 'pass the required parametres firstName,lastName,userName,userType'
+             }
+             return res.status(404).send(errObj);
+        }
     }
 }
