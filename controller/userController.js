@@ -13,9 +13,10 @@ module.exports = {
     },
     addUser: async function(req,res){
         try{
-            const {firstName,lastName,userName,userType}= req.body;
+            const {firstName,lastName,userName}= req.body;
             try{
-               let createdUser = await userService.addUser(firstName,lastName,userName,userType);
+               let createdUser = await userService.addUser(firstName,lastName,userName);
+               // change usertype as non-premium default
                return res.status(200).send(createdUser)
              }catch(err){
                 logger.error(`[USER-CONTROLLER] :: [ADDALBUM] :: `,err);s
@@ -35,5 +36,20 @@ module.exports = {
              }
              return res.status(404).send(errObj);
         }
+    },
+    editUser: async function(req,res){
+        const {firstName,lastName,userType,userMeta}= req.body;
+        const {id} = req.params;
+        try{
+          let updatedUser = userService.updateUser(id,firstName,lastName,userType,userMeta);
+        }catch(err){
+            logger.error(`[USER-CONTROLLER] :: [ADDALBUM] :: `,err);s
+            let errObj = {
+                type: 'INTERNAl_SERVICE_ERROR',
+                code: 'ADDUSER_NOT_AVAIABLE',
+                message: 'ERROR WHILE ADDING THE USER'
+            }  
+            return res.status(500).send(errObj)           
+        }  
     }
 }

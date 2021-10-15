@@ -3,14 +3,14 @@ const { v4: uuidv4 } = require('uuid');
 const Service = new ServiceIntiater();
 const logger = Service.logger;
 module.exports = {
-    addUser: async function(firstName,lastName,userName,userType){
+    addUser: async function(firstName,lastName,userName){
         let Models = await Service.getModels();
         let user = {
             id: uuidv4(),
             firstName: firstName,
             lastName: lastName,
             userName,userName,
-            userType: userType,
+            userType: 'Non-premium',
             createdAt: Date.now(),
             updatedAt: Date.now()
         }
@@ -37,5 +37,29 @@ module.exports = {
         }
         
        
+    },
+    updateUser: async function(id,firstName = null,lastName=null,userType=null,metaData=null){
+        let user = {
+            firstName: firstName,
+            lastName: lastName,
+            userType: userType,
+            updatedAt: Date.now(),
+            userMeta: JSON.stringify(metaData),
+        };
+        user = removeEmpty(user);
+        let Models = await Service.getModels(user);
+        let user = await Models.User.update(user, {
+            where: {
+              id: id
+            }
+          });
     }
 }
+
+const removeEmpty = (obj) => {
+    Object.entries(obj).forEach(([key, val])  =>
+      (val && typeof val === 'object') && removeEmpty(val) ||
+      (val === null || val === "") && delete obj[key]
+    );
+    return obj;
+};

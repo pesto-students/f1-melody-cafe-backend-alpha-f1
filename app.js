@@ -4,7 +4,9 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser');
 const usersRouter = require('./routes/users');
 const albumRouter = require('./routes/album');
+const streamSongRouter = require('./routes/audioStream');
 const app = express();
+
 //const {winstonLogger} = require('./services/serviceIntiaters');
 
 app.use(logger('dev'));
@@ -14,7 +16,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/user', usersRouter);
 app.use('/albums',albumRouter);
-
+app.use('/stream',streamSongRouter);
 //app.set('logger',winstonLogger);
 //app.set('databaseManager',databaseManager);
 
