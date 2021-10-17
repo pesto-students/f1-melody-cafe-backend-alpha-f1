@@ -13,13 +13,13 @@ module.exports = {
     },
     addUser: async function(req,res){
         try{
-            const {firstName,lastName,userName}= req.body;
+            const {firstName,lastName,userName,id}= req.body;
             try{
-               let createdUser = await userService.addUser(firstName,lastName,userName);
+               let createdUser = await userService.addUser(firstName,lastName,userName,id);
                // change usertype as non-premium default
                return res.status(200).send(createdUser)
              }catch(err){
-                logger.error(`[USER-CONTROLLER] :: [ADDALBUM] :: `,err);s
+                logger.error(`[USER-CONTROLLER] :: [ADDALBUM] :: `,err);
                 let errObj = {
                     type: 'INTERNAl_SERVICE_ERROR',
                     code: 'ADDUSER_NOT_AVAIABLE',
@@ -28,6 +28,7 @@ module.exports = {
                 return res.status(500).send(errObj)
              }
         }catch(err){
+            console.log(err)
             logger.error(`ERROR :: [USERCONTROLLER] :: [getUserById] :: ${JSON.stringify(err)}`);
             let errObj = {
                 type: 'REQUIRED_PARAMETERS_MISSING',
@@ -43,7 +44,7 @@ module.exports = {
         try{
           let updatedUser = userService.updateUser(id,firstName,lastName,userType,userMeta);
         }catch(err){
-            logger.error(`[USER-CONTROLLER] :: [ADDALBUM] :: `,err);s
+            logger.error(`[USER-CONTROLLER] :: [ADDALBUM] :: `,err);
             let errObj = {
                 type: 'INTERNAl_SERVICE_ERROR',
                 code: 'ADDUSER_NOT_AVAIABLE',
