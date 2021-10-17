@@ -17,7 +17,7 @@ module.exports = {
             try{
                let createdUser = await userService.addUser(firstName,lastName,userName,id);
                // change usertype as non-premium default
-               return res.status(200).send(createdUser)
+               return res.status(201).send(createdUser)
              }catch(err){
                 logger.error(`[USER-CONTROLLER] :: [ADDALBUM] :: `,err);
                 let errObj = {

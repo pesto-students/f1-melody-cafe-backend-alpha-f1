@@ -30,5 +30,14 @@ module.exports = {
          where
        });
        return albums;   
+    },
+    getAlbumById: async function(id){
+      const Models = await Service.getModels();
+      let album = await Models.Album.findOne({
+        where:{
+          id: id
+        }
+      })
+      return album;
     }
 }

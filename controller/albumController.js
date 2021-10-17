@@ -2,11 +2,10 @@ const logger = require('../services/loggerService');
 const albumService = require('../services/albumService');
 module.exports = {
     addAlbum: async function(req,res){
-        try{
             const {name,type,userId}  = req.body;
              try{
                let createdAlbum = await albumService.addAlbum(name,type,userId);
-               return res.status(200).send(createdAlbum)
+               return res.status(201).send(createdAlbum)
              }catch(err){
                 logger.error(`[ALBUM-CONTROLLER] :: [ADDALBUM] :: `,err);s
                 let errObj = {
@@ -15,16 +14,7 @@ module.exports = {
                     message: 'ERROR WHILE ADDING THE ALBUM'
                 }  
                 return res.status(500).send(errObj)
-             }
-        }catch(err){
-            logger.error(`ERROR :: [USERCONTROLLER] :: [getUserById] :: ${JSON.stringify(err)}`);
-            let errObj = {
-                type: 'REQUIRED_PARAMETERS_MISSING',
-                code: 'REQUIRD PARAMERTRS ARE MISSING name,type,userId',
-                message: 'pass the required parametres name,type,userId'
-             }
-             return res.status(404).send(errObj);
-        }
+            }
     },
     getAlbums: async function(req,res){
         try{
@@ -42,5 +32,20 @@ module.exports = {
             }  
             return res.status(500).send(errObj);        
         }
+    },
+    getAlbumById:  async function(req,res){
+        try{
+            let id = req.params.id;
+            const albums = await albumService.getAlbumById(id);
+             return res.status(200).send(albums)
+            }catch(err){
+                logger.error(`[ALBUM-CONTROLLER] :: [GETALBUMBYID] :: `,err);
+                let errObj = {
+                    type: 'INTERNAl_SERVICE_ERROR',
+                    code: 'GETALBUMBYID_NOT_AVAIABLE',
+                    message: 'ERROR WHILE GETTING THE ALBUM'
+                }  
+                return res.status(500).send(errObj);        
+            }        
     }
 }
