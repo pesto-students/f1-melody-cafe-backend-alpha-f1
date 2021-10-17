@@ -4,5 +4,4 @@ const trackController = require('../controller/trackController');
 /* GET users listing. */
 router.post('/', trackController.addTrack);
 router.get('/:id',trackController.getTrackbyId);
-
 module.exports = router;

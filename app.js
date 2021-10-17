@@ -6,6 +6,7 @@ const usersRouter = require('./routes/users');
 const albumRouter = require('./routes/album');
 const streamSongRouter = require('./routes/audioStream');
 const trackRouter = require('./routes/track');
+const albumTrackRouter = require('./routes/albumTrack');
 const app = express();
 
 //const {winstonLogger} = require('./services/serviceIntiaters');
@@ -19,6 +20,7 @@ app.use('/user', usersRouter);
 app.use('/albums',albumRouter);
 app.use('/stream',streamSongRouter);
 app.use('/track',trackRouter);
+app.use('/album/:albumId')
 //app.set('logger',winstonLogger);
 //app.set('databaseManager',databaseManager);
 
