@@ -20,7 +20,7 @@ app.use('/user', usersRouter);
 app.use('/albums',albumRouter);
 app.use('/stream',streamSongRouter);
 app.use('/track',trackRouter);
-app.use('/album/:albumId')
+app.use('/album/:albumId',albumTrackRouter)
 //app.set('logger',winstonLogger);
 //app.set('databaseManager',databaseManager);
 
