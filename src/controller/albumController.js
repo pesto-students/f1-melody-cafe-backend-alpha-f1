@@ -1,7 +1,18 @@
 const logger = require('../services/loggerService');
 const albumService = require('../services/albumService');
+const validationService= require('../services/validationService');
+
 module.exports = {
     addAlbum: async function(req,res){
+            const keys = ["name","type","userId"]
+            const validObject = validationService.checkMadatoryKeys(keys,req.body);
+            if(!validObject.valid){
+                return res.status(404).send({
+                    type: "parameters missing",
+                    code: "require parameters not passed",
+                    message: "REQUIRED_PARAMETER_NOT_PASSED"
+                })
+            }
             const {name,type,userId}  = req.body;
              try{
                let createdAlbum = await albumService.addAlbum(name,type,userId);
