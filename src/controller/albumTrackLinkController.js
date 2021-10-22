@@ -3,7 +3,7 @@ const albumTrackService = require('../services/albumTrackLinkService');
 module.exports = {
     addSongToPlaylist:  async function(req,res){
         try{
-            let {albumId,trackId} = req.param;
+            let {albumId,trackId} = req.params;
             const albums = await albumTrackService.addTrackToAlbum(albumId,trackId);
              return res.status(200).send(albums)
             }catch(err){
