@@ -7,4 +7,4 @@ async function testAlbumService(){
       console.log(createdAlbum)
    },10000)
 }
-testAlbumService()
+testAlbumService();

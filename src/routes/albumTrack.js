@@ -4,6 +4,9 @@ const albumTrackController = require('../controller/albumTrackLinkController');
 /* GET users listing. */
 
 router.post('/track/:trackId',albumTrackController.addSongToPlaylist);
+/*
+/album/:albumId/tracks
+*/
 router.get('/track',albumTrackController.getSongsFromAlbum);
 
 module.exports = router;

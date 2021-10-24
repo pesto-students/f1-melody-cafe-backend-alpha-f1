@@ -13,8 +13,7 @@ module.exports = {
           });
           return addedTrack;                
         }catch(err){
-          console.log(err)
-          throw err('TRACK_CREATION_ERROR');
+          throw Error('TRACK_CREATION_ERROR');
         }
     },
     getTrackFromAlbum: async function(albumId){

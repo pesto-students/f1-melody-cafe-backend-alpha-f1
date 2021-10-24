@@ -5,14 +5,14 @@ module.exports = {
         try{
             let {albumId,trackId} = req.params;
             const albums = await albumTrackService.addTrackToAlbum(albumId,trackId);
-             return res.status(200).send(albums)
+            return res.status(200).send(albums);
             }catch(err){
                 logger.error(`[ALBUM-TRACK-CONTROLLER] :: [ADDSONGTOPLAYLIST] :: `,err);
                 let errObj = {
                     type: 'INTERNAl_SERVICE_ERROR',
                     code: 'ADDSONGTOPLAYLIST_NOT_AVAIABLE',
                     message: 'ERROR WHILE ADDING SONG TO ALBUM'
-                }  
+                };
                 return res.status(500).send(errObj);        
             }        
     },

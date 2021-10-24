@@ -7,7 +7,7 @@ module.exports = {
             const keys = ["name","type","userId"]
             const validObject = validationService.checkMadatoryKeys(keys,req.body);
             if(!validObject.valid){
-                return res.status(404).send({
+                return res.status(400).send({
                     type: "parameters missing",
                     code: "require parameters not passed",
                     message: "REQUIRED_PARAMETER_NOT_PASSED"
@@ -18,7 +18,7 @@ module.exports = {
                let createdAlbum = await albumService.addAlbum(name,type,userId);
                return res.status(201).send(createdAlbum)
              }catch(err){
-                logger.error(`[ALBUM-CONTROLLER] :: [ADDALBUM] :: `,err);s
+                logger.error(`[ALBUM-CONTROLLER] :: [ADDALBUM] :: `,err);
                 let errObj = {
                     type: 'INTERNAl_SERVICE_ERROR',
                     code: 'ADDALBUM_NOT_AVAIABLE',
