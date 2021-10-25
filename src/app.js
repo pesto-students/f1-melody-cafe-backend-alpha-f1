@@ -25,7 +25,7 @@ app.use('/stream',streamSongRouter);
 app.use('/track',trackRouter);
 app.use('/album/:albumId',albumTrackRouter);
 app.use('/payment',paymentRouter);
-app.use('/youtube/',youtubeRouter);
+app.use('/',youtubeRouter);
 //app.set('logger',winstonLogger);
 //app.set('databaseManager',databaseManager);
 

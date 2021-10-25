@@ -10,7 +10,7 @@ const getAuth = require('./googleApiServiceIntiater');
 module.exports = {
     getTrendingSongs: async function(queryFilter){
      let youtube = await getAuth()
-     let result =       await youtube.search.list({part: queryFilter})  
+     let result =  await youtube.search.list(queryFilter);  
      logger.info('[YOUTUBESERVICE]:: [TRENDINGSONG] :: [RESULT]',result);
      if(result.data){
          return result.data
