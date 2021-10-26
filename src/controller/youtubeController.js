@@ -15,27 +15,23 @@ module.exports = {
             type: 'video'
           }
         }
-        if(req.query.type==='artist'){
+        if(req.query.type=='artist'){
             query = {
                 q: req.query.search,
                 part: 'snippet',
-                regionCode:"IN",
-                videoCategoryId: 10,    
-                maxResults: 5,
+                maxResults: 10,
                 type: 'channel'
               } 
         }
 
         
-        if(req.query.type==='playlist'){
+        if(req.query.type=='playlist'){
             query = {
                 q: req.query.search,
                 part: 'snippet',
-                videoCategoryId: 10,
-                regionCode:"IN",    
-                maxResults: 50,
-                type: 'playlist'
-              } 
+                maxResults: 10,
+                type: 'playlist', 
+            } 
         }
         logger.debug('[YOUTUBECONTROLLER] :: [GETTRENDINGSONG]:: ',req);
         try{
@@ -46,6 +42,23 @@ module.exports = {
         return res.status(200).send(result);
         }catch(err){
             logger.error('[YOUTUBECONTROLLER] :: [GET-TRENDING-SONG]  ',err)
+            return res.status(500).send({
+                code: "INTERNAL_SERVER_ERROR",
+                message: "there is internal server error", 
+            });
+        }
+    },
+    getPlaylistData: async function(req,res){
+        let {id} = req.params;
+        try{
+         let result = await youtubeService.getPlaylist(id);
+         return res.status(200).send(result);
+        }catch(err){
+            logger.error('[YOUTUBECONTROLLER] :: [GET-TRENDING-SONG]  ',err)
+            return res.status(500).send({
+                code: "INTERNAL_SERVER_ERROR",
+                message: "there is internal server error", 
+            });
         }
     }
 }

@@ -11,10 +11,12 @@ module.exports = {
     getTrendingSongs: async function(queryFilter,type){
      let youtube = await getAuth()
      let result;
-     if(type='trending'){
+     try{
+     if(type==='trending'){
        result =  await youtube.videos.list(queryFilter);  
+     }else{
+        result =  await youtube.search.list(queryFilter);
      }
-     result =  await youtube.search.list(queryFilter);  
      logger.info('[YOUTUBESERVICE]:: [TRENDINGSONG] :: [RESULT]',result);
      if(result.data){
          return result.data
@@ -23,5 +25,25 @@ module.exports = {
          code: 'BAD_REQUEST',
          message: 'GOOGLE_API_ERROR'
      }   
+    }catch(err){
+        logger.error(`[YOUTUBESERVICE :: [TRENDINGSONG] :: `,err)
+        throw new Error('GOOGLE API ERROR')
+    }
+    },
+    getPlaylist: async function(id){
+        let youtube = await getAuth();
+        try{
+            let result =await youtube.playlists.list({part:'snippet',id: id, maxResults: 10});
+            if(result.data){
+                return result.data
+            }
+            return {
+                code: 'BAD_REQUEST',
+                message: 'GOOGLE_API_ERROR'
+            }
+        }catch(err){
+            logger.error(`[YOUTUBESERVICE]::[GETPLAYLISTDATA]::[err]`,err);
+            throw Error('GOOGLE API ERROR')
+        }    
     }
 }
