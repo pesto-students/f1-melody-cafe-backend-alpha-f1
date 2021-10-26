@@ -50,5 +50,21 @@ module.exports = {
             logger.error(`[YOUTUBESERVICE]::[GETPLAYLISTDATA]::[err]`,err);
             throw Error('GOOGLE API ERROR')
         }    
+    },
+    getPlaylistItem: async function(playlistId){
+        let query ={
+            part:'snippet',
+            playlistId: playlistId,
+            maxResults: 10           
+        }
+        let youtube = await getAuth();
+        let result;
+        try{
+            result = await youtube.playlistItems(query);
+            return result;
+        }catch(err){
+            logger.error(`[YOUTUBESERVICE]::[GETPLAYLISTITEM]::[err]`,err);
+            throw('GOOGLE API ERROR')
+        }
     }
 }

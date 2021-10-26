@@ -60,5 +60,18 @@ module.exports = {
                 message: "there is internal server error", 
             });
         }
+    },
+    getPlaylistItems: async function(req,res){
+        let {playlistId} = req.params;
+        try{
+            let result = await youtubeService.getPlaylist(playlistId);
+            return res.status(200).send(result);          
+        }catch(err){
+            logger.error('[YOUTUBECONTROLLER] :: [GET-PLAYLIST-ITEM]  ',err)
+            return res.status(500).send({
+                code: "INTERNAL_SERVER_ERROR",
+                message: "there is internal server error", 
+            });
+        }
     }
 }
