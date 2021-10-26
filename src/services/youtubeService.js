@@ -60,7 +60,7 @@ module.exports = {
         let youtube = await getAuth();
         let result;
         try{
-            result = await youtube.playlistItems(query);
+            result = await youtube.playlistItems.list(query);
             return result;
         }catch(err){
             logger.error(`[YOUTUBESERVICE]::[GETPLAYLISTITEM]::[err]`,err);
