@@ -61,7 +61,7 @@ module.exports = {
         let result;
         try{
             result = await youtube.playlistItems.list(query);
-            return result;
+            return result.data;
         }catch(err){
             logger.error(`[YOUTUBESERVICE]::[GETPLAYLISTITEM]::[err]`,err);
             throw('GOOGLE API ERROR')

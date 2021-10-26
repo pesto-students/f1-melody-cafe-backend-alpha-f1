@@ -64,7 +64,7 @@ module.exports = {
     getPlaylistItems: async function(req,res){
         let {playlistId} = req.params;
         try{
-            let result = await youtubeService.getPlaylist(playlistId);
+            let result = await youtubeService.getPlaylistItem(playlistId);
             return res.status(200).send(result);          
         }catch(err){
             logger.error('[YOUTUBECONTROLLER] :: [GET-PLAYLIST-ITEM]  ',err)
