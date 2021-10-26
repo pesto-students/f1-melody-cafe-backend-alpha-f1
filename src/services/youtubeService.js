@@ -8,9 +8,13 @@ const getAuth = require('./googleApiServiceIntiater');
 // v3 of the blogger API, and using an API key to authenticate.
 
 module.exports = {
-    getTrendingSongs: async function(queryFilter){
+    getTrendingSongs: async function(queryFilter,type){
      let youtube = await getAuth()
-     let result =  await youtube.videos.list(queryFilter);  
+     let result;
+     if(type='trending'){
+       result =  await youtube.videos.list(queryFilter);  
+     }
+     result =  await youtube.search.list(queryFilter);  
      logger.info('[YOUTUBESERVICE]:: [TRENDINGSONG] :: [RESULT]',result);
      if(result.data){
          return result.data

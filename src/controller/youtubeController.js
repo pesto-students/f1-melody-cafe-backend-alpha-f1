@@ -4,31 +4,34 @@ const youtubeService = require('../services/youtubeService');
 
 module.exports = {
     getSongs: async function(req,res){
-        let query = {}
-        if(req.query.type='trending'){
-          query = {
+        let query={}
+        if(req.query.type == 'trending'){
+            query = {
             part: 'snippet',
             chart:'mostPopular', 
+            videoCategoryId: 10,
             regionCode:"IN",    
             maxResults: 50,
             type: 'video'
           }
         }
-        if(req.query.type='artist'){
+        if(req.query.type==='artist'){
             query = {
                 q: req.query.search,
                 part: 'snippet',
-                regionCode:"IN",    
-                maxResults: 50,
+                regionCode:"IN",
+                videoCategoryId: 10,    
+                maxResults: 5,
                 type: 'channel'
               } 
         }
 
         
-        if(req.query.type='playlist'){
+        if(req.query.type==='playlist'){
             query = {
                 q: req.query.search,
                 part: 'snippet',
+                videoCategoryId: 10,
                 regionCode:"IN",    
                 maxResults: 50,
                 type: 'playlist'
@@ -36,7 +39,7 @@ module.exports = {
         }
         logger.debug('[YOUTUBECONTROLLER] :: [GETTRENDINGSONG]:: ',req);
         try{
-        let result = await youtubeService.getTrendingSongs(query);
+        let result = await youtubeService.getTrendingSongs(query,req.query.type);
         if(result.code){
             return res.status(500).send(result);
         }
