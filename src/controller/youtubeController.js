@@ -7,7 +7,7 @@ module.exports = {
         let query={}
         if(req.query.type == 'trending'){
             query = {
-            part: 'snippet',
+            part: 'snippet,id,contentDetails,suggestions',
             chart:'mostPopular', 
             videoCategoryId: 10,
             regionCode:"IN",    

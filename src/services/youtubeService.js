@@ -31,9 +31,14 @@ module.exports = {
     }
     },
     getPlaylist: async function(id){
+        let query = {
+            part:'snippet',
+            id: id, 
+            maxResults: 10
+        };
         let youtube = await getAuth();
         try{
-            let result =await youtube.playlists.list({part:'snippet',id: id, maxResults: 10});
+            let result =await youtube.playlists.list(query);
             if(result.data){
                 return result.data
             }
