@@ -2,7 +2,7 @@ const ServiceIntiater = require('./serviceIntiaters');
 const Service = new ServiceIntiater();
 const logger = Service.logger;
 const getAuth = require('./googleApiServiceIntiater');
-
+const ytdl = require('ytdl-core')
 
 // Each API may support multiple versions. With this sample, we're getting
 // v3 of the blogger API, and using an API key to authenticate.
@@ -67,7 +67,16 @@ module.exports = {
             throw('GOOGLE API ERROR')
         }
     },
-    getSong: async function (p) {
-        
+    getSong: async function (id,quality='high') {
+        let MAP ={
+            'high':0,
+            'medium': 1,
+            'low':2
+        };
+      let data = await ytdl.getInfo(`https://www.youtube.com/watch?v=${id}`, {
+          quality: "highestaudio",
+        })
+      let filtered_data =  ytdl.filterFormats(data.formats, "audioonly");
+      return filtered_data[MAP[`${quality}`]].url;
     }
 }

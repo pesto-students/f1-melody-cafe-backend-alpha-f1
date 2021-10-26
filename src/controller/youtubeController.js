@@ -73,5 +73,27 @@ module.exports = {
                 message: "there is internal server error", 
             });
         }
+    },
+    getSong: async function(req,res){
+        let {id} = req.params;
+        if(!id){
+            return res.status(400).send('BAD REQUEST')
+        }
+        let {quality} = req.query || 'high';
+     try{
+        let result = await youtubeService.getSong(id,quality);
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        res.setHeader("Access-Control-Allow-Credentials", true);
+        res.send(result);
+     }catch(err){
+        logger.error(`[YOUTUBECONTROLLER]:: [GETSONG] :: `,err);
+        return res.status(500).send({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "there is internal server error", 
+        });
+     }
+     
     }
 }
