@@ -32,7 +32,7 @@ module.exports = {
     },
     getPlaylist: async function(id){
         let query = {
-            part:'snippet',
+            part:'snippet,contentDetails',
             id: id, 
             maxResults: 10
         };
@@ -53,7 +53,7 @@ module.exports = {
     },
     getPlaylistItem: async function(playlistId){
         let query ={
-            part:'snippet',
+            part:'snippet,contentDetails',
             playlistId: playlistId,
             maxResults: 10           
         }
@@ -66,5 +66,8 @@ module.exports = {
             logger.error(`[YOUTUBESERVICE]::[GETPLAYLISTITEM]::[err]`,err);
             throw('GOOGLE API ERROR')
         }
+    },
+    getSong: async function (p) {
+        
     }
 }
