@@ -55,7 +55,7 @@ module.exports = {
         let query ={
             part:'snippet,contentDetails',
             playlistId: playlistId,
-            maxResults: 10           
+            maxResults: 50        
         }
         let youtube = await getAuth();
         let result;
