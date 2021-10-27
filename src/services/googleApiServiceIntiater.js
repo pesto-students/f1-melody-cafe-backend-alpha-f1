@@ -9,7 +9,7 @@ const getAuth = async function(){
       */
       const youtube = await google.youtube({
         version: 'v3',
-        auth: 'AIzaSyBHlYqHGN8kaxlwsqf-mKaUAtPBU0dOBBU'
+        auth: process.env.YOUTUBEKEY || 'AIzaSyBHlYqHGN8kaxlwsqf-mKaUAtPBU0dOBBU'
       });
       return youtube;
 }
