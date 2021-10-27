@@ -4,7 +4,7 @@ const Service = new ServiceIntiater();
 const logger = Service.logger;
 
 module.exports = {
-    addAlbum: async function(name,type,userId){
+    addAlbum: async function(name,type,userId,track){
         const Models = await Service.getModels();
         const album = {
           id: uuidv4(),
@@ -13,6 +13,7 @@ module.exports = {
           createdAt: Date.now(),
           updatedAt: Date.now(),
           updatedBy: userId,
+          track: track
         }   
         try{
           const createdAlbum = await Models.Album.create(album);

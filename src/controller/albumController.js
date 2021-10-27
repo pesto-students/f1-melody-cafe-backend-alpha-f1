@@ -13,9 +13,10 @@ module.exports = {
                     message: "REQUIRED_PARAMETER_NOT_PASSED"
                 })
             }
-            const {name,type,userId}  = req.body;
+            const {name,type,userId,track}  = req.body;
              try{
-               let createdAlbum = await albumService.addAlbum(name,type,userId);
+               let stringifyTrack = JSON.stringify(track);
+               let createdAlbum = await albumService.addAlbum(name,type,userId,stringifyTrack);
                return res.status(201).send(createdAlbum)
              }catch(err){
                 logger.error(`[ALBUM-CONTROLLER] :: [ADDALBUM] :: `,err);
