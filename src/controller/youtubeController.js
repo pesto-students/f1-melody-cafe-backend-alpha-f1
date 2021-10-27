@@ -20,9 +20,8 @@ module.exports = {
                 part: 'snippet',
                 regionCode: "IN",
                 maxResults: 48,
-                videoCategoryId: 10,
                 type: 'channel'
-            } 
+              } 
         }
 
         
@@ -32,7 +31,6 @@ module.exports = {
                 regionCode: "IN",
                 part: 'snippet',
                 maxResults: 48,
-                videoCategoryId: 10,
                 type: 'playlist', 
             } 
         }

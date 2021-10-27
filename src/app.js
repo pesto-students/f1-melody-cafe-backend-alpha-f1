@@ -5,7 +5,6 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const usersRouter = require('./routes/users');
 const albumRouter = require('./routes/album');
-const streamSongRouter = require('./routes/audioStream');
 const trackRouter = require('./routes/track');
 const albumTrackRouter = require('./routes/albumTrack');
 const paymentRouter = require('./routes/payment')
@@ -22,7 +21,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/user', usersRouter);
 app.use('/albums',albumRouter);
-app.use('/stream',streamSongRouter);
 app.use('/track',trackRouter);
 app.use('/album/:albumId',albumTrackRouter);
 app.use('/payment',paymentRouter);
