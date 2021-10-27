@@ -10,7 +10,7 @@ module.exports = {
             chart:'mostPopular', 
             videoCategoryId: 10,
             regionCode:"IN",    
-            maxResults: 50,
+            maxResults: 48,
             type: 'video'
           }
         }
@@ -18,17 +18,21 @@ module.exports = {
             query = {
                 q: req.query.search,
                 part: 'snippet',
-                maxResults: 10,
+                regionCode: "IN",
+                maxResults: 48,
+                videoCategoryId: 10,
                 type: 'channel'
-              } 
+            } 
         }
 
         
         if(req.query.type=='playlist'){
             query = {
                 q: req.query.search,
+                regionCode: "IN",
                 part: 'snippet',
-                maxResults: 10,
+                maxResults: 48,
+                videoCategoryId: 10,
                 type: 'playlist', 
             } 
         }
