@@ -43,6 +43,7 @@ module.exports = {
         const {id} = req.params;
         try{
           let updatedUser = userService.updateUser(id,firstName,lastName,userType,userMeta);
+          return res.status(200).send(updatedUser);
         }catch(err){
             logger.error(`[USER-CONTROLLER] :: [ADDALBUM] :: `,err);
             let errObj = {

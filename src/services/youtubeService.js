@@ -9,7 +9,7 @@ const ytdl = require('ytdl-core')
 
 module.exports = {
     getTrendingSongs: async function(queryFilter,type){
-     let youtube = await getAuth()
+     let youtube =  getAuth()
      let result;
      try{
      if(type==='trending'){
@@ -36,7 +36,7 @@ module.exports = {
             id: id, 
             maxResults: 10
         };
-        let youtube = await getAuth();
+        let youtube =  getAuth();
         try{
             let result =await youtube.playlists.list(query);
             if(result.data){
@@ -57,7 +57,7 @@ module.exports = {
             playlistId: playlistId,
             maxResults: 50        
         }
-        let youtube = await getAuth();
+        let youtube =  getAuth();
         let result;
         try{
             result = await youtube.playlistItems.list(query);

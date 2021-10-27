@@ -1,7 +1,6 @@
 const ServiceIntiater = require('./serviceIntiaters');
 const { v4: uuidv4 } = require('uuid');
 const Service = new ServiceIntiater();
-const logger = Service.logger;
 
 module.exports = {
     addTrack: async function(filePath,name){

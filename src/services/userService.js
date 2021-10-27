@@ -1,5 +1,4 @@
 const ServiceIntiater = require('./serviceIntiaters');
-const { v4: uuidv4 } = require('uuid');
 const Service = new ServiceIntiater();
 const logger = Service.logger;
 module.exports = {
@@ -9,7 +8,7 @@ module.exports = {
             id:id,
             firstName: firstName,
             lastName: lastName,
-            userName,userName,
+            userName:userName,
             userType: 'Non-premium',
             createdAt: Date.now(),
             updatedAt: Date.now()

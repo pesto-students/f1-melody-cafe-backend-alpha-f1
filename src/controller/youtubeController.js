@@ -1,4 +1,3 @@
-const { query } = require('../services/loggerService');
 const logger = require('../services/loggerService');
 const youtubeService = require('../services/youtubeService');
 
