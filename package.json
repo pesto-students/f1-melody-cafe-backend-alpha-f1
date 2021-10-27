@@ -17,7 +17,7 @@
     "express": "~4.16.1",
     "googleapis": "^89.0.0",
     "lodash": "^4.17.21",
-    "melody-cafe-datamodel": "^1.4.0",
+    "melody-cafe-datamodel": "^1.5.0",
     "morgan": "~1.9.1",
     "razorpay": "^2.0.7",
     "spotify-web-api-node": "^5.0.2",
