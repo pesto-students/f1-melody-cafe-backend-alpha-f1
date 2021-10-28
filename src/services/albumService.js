@@ -14,7 +14,7 @@ module.exports = {
           updatedAt: Date.now(),
           updatedBy: userId,
           track: track
-        }   
+        }
         try{
           const createdAlbum = await Models.Album.create(album);
           return createdAlbum;                
@@ -40,5 +40,21 @@ module.exports = {
         }
       })
       return album;
+    },
+    updateAlbum: async function (id,name,userId,track) {
+      const Models = await Service.getModels();
+      let album = {
+        name: name,
+        updatedAt: Date.now(),
+        updatedBy: userId,
+        track: track
+      };
+      let updatedAlbum = await Models.Album.update(album,{
+        where:{
+          id: id
+        }
+      })
+      return updatedAlbum;
+
     }
 }

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "lint": "./node_modules/.bin/eslint  src/**/*.js  --fix ",
+    "lint": "./node_modules/.bin/eslint  src/**/**.js  --fix ",
     "develope": "nodemon ./bin/www"
   },
   "dependencies": {

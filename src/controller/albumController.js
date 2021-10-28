@@ -59,5 +59,36 @@ module.exports = {
                 }  
                 return res.status(500).send(errObj);        
             }        
+    },
+    updateAlbumController: async (req,res)=>{
+        try{
+            let id = req.params.id;
+            let {name,track,userId} = req.body;
+            if(track){
+                const albums = await albumService.getAlbumById(id);
+                let trackString = albums.track;
+                let tracks = JSON.parse(trackString);
+                let updatedTrack;
+                if(track.length){
+                    updatedTrack = [...tracks, ...track];
+                }else{
+                    updatedTrack = [track,...tracks];
+                }
+                if(name){
+                    let updatedAlbum = await albumService.updateAlbum(id,name,userId,updatedTrack);
+                    return res.status(200).send(updatedAlbum);
+                }
+                let updatedAlbum = await albumService.updateAlbum(id,albums.name,userId,updatedTrack);
+                return res.status(200).send(updatedAlbum);
+            }
+            }catch(err){
+                logger.error(`[ALBUM-CONTROLLER] :: [GETALBUMBYID] :: `,err);
+                let errObj = {
+                    type: 'INTERNAl_SERVICE_ERROR',
+                    code: 'GETALBUMBYID_NOT_AVAIABLE',
+                    message: 'ERROR WHILE GETTING THE ALBUM'
+                }  
+                return res.status(500).send(errObj);        
+            }        
     }
 }
