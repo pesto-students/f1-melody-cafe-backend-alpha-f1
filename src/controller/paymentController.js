@@ -8,8 +8,8 @@ module.exports = {
                 return res.status(400).send('Bad Request');
             }
             const order = await paymentService.createOrder(paymentAmount);
-            const html = await paymentService.getPaymentPage(order);
-             return res.status(200).send(html)
+            //const html = await paymentService.getPaymentPage(order);
+             return res.status(200).send(order)
             }catch(err){
                 logger.error(`[ALBUM-CONTROLLER] :: [GETALBUMBYID] :: `,err);
                 let errObj = {
