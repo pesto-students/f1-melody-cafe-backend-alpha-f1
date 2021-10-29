@@ -23,12 +23,11 @@ module.exports = {
           throw err('ALBUM_CREATION_ERROR');
         }
     },
-    getAlbums: async function(limit,offset,where){
+    getAlbums: async function(limit,offset){
        const Models = await Service.getModels();
        let albums = await Models.Album.findAndCountAll({
          limit:Number(limit),
-         offset:Number(offset),
-         where
+         offset:Number(offset)
        });
        return albums;   
     },

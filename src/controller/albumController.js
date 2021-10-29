@@ -37,8 +37,7 @@ module.exports = {
         try{
         let limit  = req.query.limit;
         let offset = req.query.offset;
-        let where = req.body.where || {};
-        const albumsResult = await albumService.getAlbums(limit,offset,where);
+        const albumsResult = await albumService.getAlbums(limit,offset);
         let albums = albumsResult.rows;
      //   console.log(albums);
         for(let index= 0; index<albums.length;index++){
