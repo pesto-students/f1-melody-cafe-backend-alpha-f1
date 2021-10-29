@@ -35,14 +35,32 @@ module.exports = {
                   "notes": [],
                   "created_at": 1566986570
                 }
-
                 */
               });
         })
     },
     
     getPaymentPage: (order)=>{
-        let html = `<button id="rzp-button1">Pay</button><script src="https://checkout.razorpay.com/v1/checkout.js"></script><script>
+        let html = `
+        <style>
+          
+    .button {
+      background-color: #008CBA;
+      border: none;
+      color: white;
+      padding: 10px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 4px 2px;
+      cursor: pointer;
+     }
+        </style>
+        <h1>Order Details</h1>
+        <h2>Amount ${order.amount} <h2>
+        <button id="rzp-button1" class='button' >Pay</button>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script><script>
         var options = {
             "timeout": 100,    
             "key": '${keyId}', // Enter the Key ID generated from the Dashboard   
