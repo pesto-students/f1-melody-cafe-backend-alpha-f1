@@ -9,7 +9,7 @@ const getAuth =  function(){
       const youtube = google.youtube({
         version: 'v3',
         // eslint-disable-next-line no-undef
-        auth: process.env.YOUTUBEKEY || 'AIzaSyDKt8YZA-I1MSRDuJlG_7OL47ouiNtzQJ0'
+        auth: process.env.YOUTUBEKEY || 'AIzaSyAlnkQ0oPn8nYzRXbFVRtYAwJHOYYFtt38'
       });
       return youtube;
 }

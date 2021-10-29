@@ -1,46 +1,70 @@
 const logger = require('../services/loggerService');
 const youtubeService = require('../services/youtubeService');
-
+const playlistQuery = {
+    regionCode: "IN",
+    part: 'snippet',
+    maxResults: 48,
+    type: 'playlist', 
+}
+const artistQuery =   {
+    part: 'snippet',
+    regionCode: "IN",
+    maxResults: 48,
+    type: 'channel'
+} 
+const trendingQury ={
+    part: 'snippet,id,contentDetails',
+    chart:'mostPopular', 
+    videoCategoryId: 10,
+    regionCode:"IN",    
+    maxResults: 48,
+    type: 'video'
+ }
 module.exports = {
     getSongs: async function(req,res){
-        let query={}
-        if(req.query.type == 'trending'){
-            query = {
-            part: 'snippet,id,contentDetails',
-            chart:'mostPopular', 
-            videoCategoryId: 10,
-            regionCode:"IN",    
-            maxResults: 48,
-            type: 'video'
-          }
-        }
-        if(req.query.type=='artist'){
-            query = {
-                q: req.query.search,
-                part: 'snippet',
-                regionCode: "IN",
-                maxResults: 48,
-                type: 'channel'
-              } 
-        }
-
-        
-        if(req.query.type=='playlist'){
-            query = {
-                q: req.query.search,
-                regionCode: "IN",
-                part: 'snippet',
-                maxResults: 48,
-                type: 'playlist', 
-            } 
+        let {type} = req.query || false;
+        console.log(type);
+        console.log(typeof type);
+        let query={};
+        switch(type){
+            case('trending'):
+             query = trendingQury;
+             break;
+            case('artist'):
+             query = artistQuery;
+             query.q = req.query.search;
+            break;
+            case('playlist'):
+            query = playlistQuery;
+            query.q = req.query.search;
+            break;              
         }
         logger.debug('[YOUTUBECONTROLLER] :: [GETTRENDINGSONG]:: ',req);
         try{
-        let result = await youtubeService.getTrendingSongs(query,req.query.type);
-        if(result.code){
-            return res.status(500).send(result);
-        }
-        return res.status(200).send(result);
+            if(type){
+            console.log('query',query);
+            let result = await youtubeService.getTrendingSongs(query,req.query.type);
+            if(result.code){
+                return res.status(500).send(result);
+            }
+            return res.status(200).send(result);
+            }else{
+                let result ={};
+                let artistQuerys = artistQuery;
+                artistQuerys.q = req.query.search;
+                result.album = await youtubeService.getTrendingSongs(artistQuerys,'artist');
+                let playListQuerys = playlistQuery;
+                playListQuerys.q = req.query.search;
+                result.playlist = await youtubeService.getTrendingSongs(playListQuerys,'playlist');
+                let trendingSongQuery = trendingQury;
+                trendingSongQuery.q = req.query.search;
+                result.songs = await youtubeService.getTrendingSongs(trendingSongQuery,'trending');
+                if(result.code){
+                    return res.status(500).send(result);
+                }
+                return res.status(200).send(result);
+            }
+       
         }catch(err){
             logger.error('[YOUTUBECONTROLLER] :: [GET-TRENDING-SONG]  ',err)
             return res.status(500).send({

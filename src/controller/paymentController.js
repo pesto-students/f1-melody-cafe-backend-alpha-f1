@@ -9,7 +9,7 @@ module.exports = {
             }
             const order = await paymentService.createOrder(paymentAmount);
             //const html = await paymentService.getPaymentPage(order);
-             return res.status(200).send(order)
+             return res.status(200).send(order);
             }catch(err){
                 logger.error(`[ALBUM-CONTROLLER] :: [GETALBUMBYID] :: `,err);
                 let errObj = {
