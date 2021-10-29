@@ -81,6 +81,7 @@ module.exports = {
             let {name,track,userId} = req.body;
             if(track){
                 const albums = await albumService.getAlbumById(id);
+                console.log(albums);
                 let trackString = albums.track;
                 let tracks = JSON.parse(trackString);
                 let updatedTrack;
@@ -89,6 +90,7 @@ module.exports = {
                 }else{
                     updatedTrack = [track,...tracks];
                 }
+                updatedTrack = JSON.stringify(updatedTrack)
                 if(name){
                     let updatedAlbum = await albumService.updateAlbum(id,name,userId,updatedTrack);
                     return res.status(200).send(updatedAlbum);
