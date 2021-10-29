@@ -14,8 +14,13 @@ module.exports = {
                 })
             }
             const {name,type,userId,track}  = req.body;
-             try{
-               let stringifyTrack = JSON.stringify(track);
+            let stringifyTrack = [];
+            try{
+               if(!track){
+                stringifyTrack = JSON.stringify(stringifyTrack)
+               }else{
+                stringifyTrack = JSON.stringify(track)
+               }
                let createdAlbum = await albumService.addAlbum(name,type,userId,stringifyTrack);
                return res.status(201).send(createdAlbum)
              }catch(err){
@@ -33,8 +38,19 @@ module.exports = {
         let limit  = req.query.limit;
         let offset = req.query.offset;
         let where = req.body.where || {};
-        const albums = await albumService.getAlbums(limit,offset,where);
-         return res.status(200).send(albums)
+        const albumsResult = await albumService.getAlbums(limit,offset,where);
+        let albums = albumsResult.rows;
+     //   console.log(albums);
+        for(let index= 0; index<albums.length;index++){
+            console.log(albums[index].dataValues)
+    
+         if(albums[index].dataValues.track !== null){
+              albums[index].dataValues.track =  JSON.parse(albums[index].dataValues.track)
+          }else{
+            albums[index].dataValues.track = []
+          }
+        }
+         return res.status(200).send({count: albumsResult.count, row: albums})
         }catch(err){
             logger.error(`[ALBUM-CONTROLLER] :: [ADDALBUM] :: `,err);
             let errObj = {

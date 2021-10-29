@@ -6,6 +6,6 @@ const albumController = require('../controller/albumController');
 router.post('/', albumController.addAlbum);
 router.get('/',albumController.getAlbums);
 router.get('/:id',albumController.getAlbumById);
-router.put(':/id',albumController.updateAlbumController);
+router.put('/:id',albumController.updateAlbumController);
 
 module.exports = router;
