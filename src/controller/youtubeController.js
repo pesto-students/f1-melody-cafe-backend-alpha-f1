@@ -53,18 +53,18 @@ module.exports = {
                 let artistQuerys = artistQuery;
                 artistQuerys.q = req.query.search;
                 let artists = await youtubeService.getTrendingSongs(artistQuerys,'artist');
-                result.records.push(artists.items);
+                result.records=result.records.concat(artists.items);
                 result.count = result.count + artists.items.length;
                 let playListQuerys = playlistQuery;
                 playListQuerys.q = req.query.search;
                 let playlists = await youtubeService.getTrendingSongs(playListQuerys,'playlist');
-                result.records.push(playlists.items);
+                result.records=result.records.concat(playlists.items);
                 result.count = result.count + playlists.items.length;
                 let trendingSongQuery = trendingQury;
                 trendingSongQuery.q = req.query.search;
                 let songs = await youtubeService.getTrendingSongs(trendingSongQuery,'trending');
                 result.count = result.count + songs.items.length;
-                result.records.push(songs.items)
+                result.records= result.records.concat(songs.items)
                 if(result.code){
                     return res.status(500).send(result);
                 }
