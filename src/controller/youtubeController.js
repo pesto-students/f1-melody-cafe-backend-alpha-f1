@@ -20,6 +20,14 @@ const trendingQury ={
     maxResults: 48,
     type: 'video'
  }
+
+ const videoQuery ={
+    part: 'snippet,id',
+    videoCategoryId: 10,
+    regionCode:"IN",    
+    maxResults: 48,
+    type: 'video'
+ }
 module.exports = {
     getSongs: async function(req,res){
         let {type} = req.query || false;
@@ -50,22 +58,10 @@ module.exports = {
             return res.status(200).send(result);
             }else{
                 let result ={count:0,records:[]};
-                let artistQuerys = artistQuery;
-                artistQuerys.maxResults = 5;
-                artistQuerys.q = req.query.search;
-                let artists = await youtubeService.getTrendingSongs(artistQuerys,'artist');
-                result.records=result.records.concat(artists.items);
-                result.count = result.count + artists.items.length;
-                let playListQuerys = playlistQuery;
-                playListQuerys.maxResults = 5;
-                playListQuerys.q = req.query.search;
-                let playlists = await youtubeService.getTrendingSongs(playListQuerys,'playlist');
-                result.records=result.records.concat(playlists.items);
-                result.count = result.count + playlists.items.length;
-                let trendingSongQuery = trendingQury;
+                let trendingSongQuery = videoQuery;
                 trendingSongQuery.q = req.query.search;
                 trendingSongQuery.maxResults = 5;
-                let songs = await youtubeService.getTrendingSongs(trendingSongQuery,'trending');
+                let songs = await youtubeService.getTrendingSongs(trendingSongQuery,'video');
                 result.count = result.count + songs.items.length;
                 result.records= result.records.concat(songs.items)
                 if(result.code){
