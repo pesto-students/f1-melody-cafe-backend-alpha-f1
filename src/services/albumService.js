@@ -25,10 +25,7 @@ module.exports = {
     },
     getAlbums: async function(limit,offset){
        const Models = await Service.getModels();
-       let albums = await Models.Album.findAndCountAll({
-         limit:Number(limit),
-         offset:Number(offset)
-       });
+       let albums = await Models.Album.findAndCountAll();
        return albums;   
     },
     getAlbumById: async function(id){
